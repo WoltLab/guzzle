@@ -104,7 +104,11 @@ class StreamHandler
         $status = $parts[1];
         $reason = isset($parts[2]) ? $parts[2] : null;
         $headers = \GuzzleHttp\headers_from_lines($hdrs);
-        list($stream, $headers) = $this->checkDecode($options, $headers, $stream);
+
+        if (\strcasecmp('HEAD', $request->getMethod())) {
+            list($stream, $headers) = $this->checkDecode($options, $headers, $stream);
+        }
+
         $stream = Psr7\stream_for($stream);
         $sink = $stream;
 

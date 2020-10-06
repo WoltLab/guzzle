@@ -55,6 +55,7 @@ final class EasyHandle
 
         if (!empty($this->options['decode_content'])
             && isset($normalizedKeys['content-encoding'])
+            && $this->request->getMethod() !== 'HEAD'
         ) {
             $headers['x-encoded-content-encoding']
                 = $headers[$normalizedKeys['content-encoding']];
